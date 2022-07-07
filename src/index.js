@@ -8,8 +8,8 @@ function Square(props){
       return (
         <button 
             className="square" 
-            onClick = {props.onClick}
-            //onClick = {()=>{console.log(props.value)}}
+            //onClick = {()=>{console.log(props.value)}} //Why does this work?
+            onClick = {props.onClick}//But calling the same function through handleClick defined in parent returns undefined
         >
           {props.value}
         </button>
