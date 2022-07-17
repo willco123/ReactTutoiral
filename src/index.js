@@ -6,13 +6,15 @@ import './index.css';
 function Square(props){ 
     
       return (
+        <>
         <button 
             className="square" 
             //onClick = {()=>{console.log(props.value)}} //Why does this work?
-            onClick = {props.onClick}//But calling the same function through handleClick defined in parent returns undefined
+            onClick = {props.handleClick}//But calling the same function through handleClick defined in parent returns undefined
         >
           {props.value}
         </button>
+        </>
       );
   }
 
@@ -22,15 +24,21 @@ function Board(props){
   const [squareState, setSquareState] = useState(new Array(9).fill(null))
   const [testState, setTestState] = useState(0)
 
-  const handleClick = (props) =>{
-    console.log(props.value)
+  function handleClick(value) {
+    console.log(value)
+    return null
+
+  }
+
+  function passProp(props){
+    console.log(props)
   }
 
     const renderSquare = (i) =>{
       return(
         <Square 
           value = {i}
-          onClick = {(props) =>{handleClick(props)}}
+          handleClick = {() => handleClick(i)}
         />
       )
     }
@@ -40,7 +48,11 @@ function Board(props){
     return (
         <div>
           <div className="board-row">
-            <Square value = {0}/>
+            <Square 
+              value = {0}
+              handleClick = {() => passProp(props.value)}
+
+            />
             {renderSquare(1)}
             {renderSquare(2)}
           </div>
@@ -80,7 +92,5 @@ function Game(props) {
   const root = ReactDOM.createRoot(document.getElementById("root"));
   root.render(<Game />);
 
-  //Figure out how to:
-  //  props
-  //  state
+
   
